@@ -1,1 +1,1 @@
-# M1 collector uses the Python standard library only.
+networkx>=3.2

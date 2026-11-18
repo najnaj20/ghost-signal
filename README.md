@@ -155,8 +155,17 @@ Updated 18 Nov 2026. Be honest about what is done and what is not.
 - Known gap: the GDELT DOC API returns headlines and metadata, not article
   bodies, so `cleaned_text` is the headline for now. GDELT often answers
   HTTP 429; the collector backs off and skips a topic that keeps failing.
-- Not done: extractor, graph, scorer, API, dashboard. No entity, relation,
-  or score has been computed yet.
+- Done (M2): arXiv (paper) and Hacker News (forum) collectors, pulled
+  forward from M4. Heuristic extractor, NetworkX graph, Ghost Score engine.
+  Run on 18 Nov 2026: 407 documents (89 news, 150 paper, 168 forum),
+  215 entities, 525 evidence-backed claims, 215 score rows. M2 acceptance
+  met, for example "measles": 11 documents from news and forum.
+  Tests: `python -m tests.test_collector`, `python -m tests.test_m2`.
+- Known gap: all documents so far are from about one day, so novelty and
+  velocity are not yet meaningful; they need several days of collection.
+  The heuristic extractor misses many entities (189 of 407 documents have
+  none) and some regex hits are noise.
+- Not done: API, dashboard. No scheduler (cron or systemd) installed.
 
 ## Milestones
 
