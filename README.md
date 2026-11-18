@@ -147,9 +147,16 @@ Nothing is claimed about Kiro use that did not actually happen.
 
 Updated 18 Nov 2026. Be honest about what is done and what is not.
 
-- Done: public repo created (18 Nov 2026), MIT licence, README and PRD written.
-- Not done: collector, extractor, graph, scorer, API, dashboard. No data has
-  been collected yet and no score has been computed. Do not claim otherwise.
+- Done: public repo (MIT), README, PRD, /.kiro (steering plus collector spec).
+- Done (M1): GDELT collector (`python -m src.collector.run`, or `--every 4`
+  to repeat) and SQLite database at `data/ghost-signal.db` with the PRD
+  schema. First runs on 18 Nov 2026 stored real English news documents for
+  the ai, energy, and health topics, deduplicated by URL.
+- Known gap: the GDELT DOC API returns headlines and metadata, not article
+  bodies, so `cleaned_text` is the headline for now. GDELT often answers
+  HTTP 429; the collector backs off and skips a topic that keeps failing.
+- Not done: extractor, graph, scorer, API, dashboard. No entity, relation,
+  or score has been computed yet.
 
 ## Milestones
 
