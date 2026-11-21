@@ -129,3 +129,10 @@ Verification, curl against the public IP from the VPS:
 
 Verdicts: Vercel no (no persistent process or websocket for Streamlit). Streamlit Community Cloud yes,
 after data/ghost-signal.db is committed or the empty-DB crash is fixed (fresh clone crashes with IndexError).
+
+## About tab (22 Nov 2026)
+Dashboard gets a third tab, About: motto, one-line summary, 3-step pipeline, Ghost Score and component
+weights in plain English, "Rising from the grave" label (>70), data sources, what it is not, who it is for.
+Feed tab now opens with one plain sentence explaining the site. Feed and Watchlist logic unchanged.
+Checks: tests.test_collector, tests.test_m2, tests.test_m3 print ok; Streamlit AppTest renders tabs
+Feed, Watchlist, About with no exception.

@@ -48,9 +48,11 @@ def table(rows):
                           "Mentions": r["mention_count"], "Watched": "yes" if r["id"] in watched else ""} for r in rows])
 
 
-tab_feed, tab_watch = st.tabs(["Feed", f"Watchlist ({len(watched)})"])
+tab_feed, tab_watch, tab_about = st.tabs(["Feed", f"Watchlist ({len(watched)})", "About"])
 
 with tab_feed:
+    st.markdown("**Ghost Signal watches for topics that are quietly starting to get attention, "
+                "before they become obvious.** New here? Open the About tab.")
     st.subheader("Feed")
     st.caption(f"Scores from {items[0]['score_date']}. Above 70 means Rising from the grave. Click a row.")
     pick = st.dataframe(table(items), hide_index=True, width="stretch", on_select="rerun",
@@ -112,3 +114,42 @@ with tab_watch:
             with con() as c:
                 unwatch(c, w["id"])
             st.rerun()
+
+with tab_about:
+    st.subheader("Be obsessed and be ambitious.")
+    st.markdown("""
+**What is Ghost Signal?** An early-warning dashboard that spots topics quietly starting to get attention
+across news, research papers, and tech forums, before they become obvious.
+
+**How it works**
+1. **Collect.** Collectors gather real documents: news articles, papers, and forum posts.
+2. **Extract.** The extractor finds *entities* (named things such as a technology, company, or place)
+   and *relations* (how two entities are connected, quoted from the text).
+3. **Score.** The Ghost Score ranks every entity, so the most interesting signals rise to the top.
+
+**How to read the feed**
+
+The **Ghost Score** runs from 0 to 100. Higher means the topic looks more like an early signal worth a look.
+It mixes four parts, each also 0 to 100:
+
+| Part | Weight | Plain meaning |
+|---|---|---|
+| Novelty | 0.4 | How new the topic is. First seen this week scores high; already everywhere scores low. |
+| Velocity | 0.3 | How fast mentions are rising. Going from 1 to 5 mentions beats a flat 20. |
+| Corroboration | 0.2 | How many *different kinds* of sources mention it (a paper plus news beats three copied articles). |
+| Weirdness | 0.1 | How unexpected the place is where it shows up, for example battery tech in a medical journal. |
+
+**Signal label:** a score above 70 is marked **Rising from the grave**: a strong early signal.
+Below 70 the label stays empty. Click any row to see its evidence.
+
+**Where the data comes from:** GDELT (a global news index), arXiv (research papers),
+Hacker News (a tech forum), and RSS feeds (news and blog updates). Every signal links to its evidence:
+the original source and the exact quote.
+
+**What it is NOT**
+- It does not predict the future. It shows what is starting to move, not what will happen.
+- It is not a trading bot, and it is not trading or financial advice.
+- It is a research tool only.
+
+**Who it is for:** curious readers, researchers, and builders who want to catch weak signals early.
+""")
