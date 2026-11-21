@@ -2,7 +2,7 @@
 
 - Version: 1.0 (draft)
 - Date: 18 Nov 2026
-- Owner: Najwati (solo, non-student)
+- Owner: solo entrant (non-student)
 - Context: Kiroween 2026 hackathon, Frankenstein category
 - Status: repo created, nothing else built yet. This PRD is the build spec.
   The builder (Hermes) must follow it. If reality differs from this PRD,
@@ -193,7 +193,7 @@ means no signal. This applies to the graph, the API, and the dashboard alike.
 - **M5, by 4 Dec**: demo video recorded from the real dashboard (under 3
   minutes), uploaded to public YouTube; Devpost submission draft saved; blog
   published. Accept: the submission checklist is fully ticked except the
-  final submit click, which is Naj's.
+  final submit click, which is the owner's.
 
 ## 11. Constraints
 
@@ -211,7 +211,7 @@ means no signal. This applies to the graph, the API, and the dashboard alike.
 7. Kiro usage must be real, deep, and documented (specs, steering, hooks,
    agents, experiments). Insufficient Kiro use can disqualify the entry.
 8. No Kiro credit request or resubmission. Build with the credits already
-   connected on Naj's VPS.
+   connected on the owner's VPS.
 
 ## 12. Risks and open questions
 
@@ -226,7 +226,7 @@ means no signal. This applies to the graph, the API, and the dashboard alike.
   are the spec. If a step is unclear, read them again before acting. Do not
   guess the product from its name alone.
 - Open question: deployment target for the judges (Streamlit Community Cloud
-  vs demo link with run instructions). Decided by Naj before M5.
+  vs demo link with run instructions). Decided by the owner before M5.
 
 ## 13. Out of scope (v2)
 

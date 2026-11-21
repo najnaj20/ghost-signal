@@ -4,7 +4,7 @@ An agentic AI that hunts "ghost signals": topics that are still faint and rarely
 mentioned, but starting to move across news, papers, and tech sources. It turns
 them into an evidence-backed early-warning dashboard.
 
-Built for **Kiroween 2026**, Frankenstein category, by Najwati (solo, non-student).
+Built for **Kiroween 2026**, Frankenstein category, by a solo entrant (non-student).
 
 ## The honest promise
 
