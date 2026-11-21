@@ -42,9 +42,10 @@ if not items:
 
 
 def table(rows):
-    return pd.DataFrame([{"Ghost Score": r["ghost_score"], "Entity": r["name"], "Type": r["type"],
+    return pd.DataFrame([{"Ghost Score": r["ghost_score"], "Signal": r["label"] or "", "Entity": r["name"],
+                          "Type": r["type"],
                           **{k.capitalize(): r["components"][k] for k in COMPONENTS},
-                          "Mentions": r["mention_count"], "Watched": r["id"] in watched} for r in rows])
+                          "Mentions": r["mention_count"], "Watched": "yes" if r["id"] in watched else ""} for r in rows])
 
 
 tab_feed, tab_watch = st.tabs(["Feed", f"Watchlist ({len(watched)})"])
@@ -54,7 +55,9 @@ with tab_feed:
     st.caption(f"Scores from {items[0]['score_date']}. Above 70 means Rising from the grave. Click a row.")
     pick = st.dataframe(table(items), hide_index=True, width="stretch", on_select="rerun",
                         selection_mode="single-row", height=420,
-                        column_config={"Ghost Score": st.column_config.NumberColumn(format="%.1f")})
+                        column_config={c: st.column_config.NumberColumn(format="%.1f")  # one decimal everywhere
+                                       for c in ["Ghost Score", *(k.capitalize() for k in COMPONENTS)]}
+                        | {"Signal": st.column_config.TextColumn(width="medium")})
     rows = pick.selection.rows
     chosen = items[rows[0]] if rows else items[0]  # no click yet: show the top signal
 

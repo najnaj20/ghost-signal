@@ -54,3 +54,56 @@ shown as metrics, add and remove watchlist buttons, dark theme from .streamlit/c
   of collection; novelty and velocity need several days.
 - No patent source exists yet, so evidence chains show paper, forum, and news only.
 - Some heuristic hits are generic (robotics, GitHub) and rank high on one day of data.
+
+
+## Identity cleanup (commit f0884b5, 21 Nov 2026)
+Personal name removed from PRD.md and README.md file contents ("solo entrant (non-student)").
+Repo-wide grep (excluding .git and .venv) for the name, personal email, home city, university and phone
+returns zero matches. Git history was not rewritten; past commit authors are unchanged.
+
+## M4: done (21 Nov 2026)
+No M1, M2 or M3 code was changed. arXiv and Hacker News collectors already existed from M2.
+
+### Data refresh (second day)
+python -m src.collector.run: new documents 267, total 674.
+- GDELT: ai fetched 75, new 75. energy and health failed with "HTTP Error 429: Too Many Requests"
+  and were skipped by the existing back off. Not retried.
+- arXiv: ai 50 new, energy 16 new, health 9 new. Hacker News: 117 new across 10 queries.
+python -m src.extract.run: documents processed 456, claims stored 331, entities total 324.
+python -m src.score.run: entities scored 324.
+Database now: 674 documents (2026-11-18: 407, 2026-11-21: 267), 324 entities, 856 relations,
+539 score rows (215 dated 2026-11-18, 324 dated 2026-11-21). 2 entities score above 70.
+Backup of the M3 database before the refresh was kept outside the repo (data/ is gitignored).
+
+### Dashboard polish
+Contrast was already fine: body, caption and metric text compute to #e8e6f0 on #0f0f14, links #b48cff,
+headings #ff8c1a, evidence meta #a8a4b8. Changes in src/dashboard/app.py:
+- New Signal column shows "Rising from the grave" for scores above 70 (it was only in the detail panel).
+- All score columns use one decimal (mixed 100 / 58.7 before).
+- Watched column is plain text "yes" instead of a checkbox, so it is not confused with the row selector.
+Screenshot: docs/m4/dashboard_feed.png (headless Chromium via Playwright).
+
+### Docs
+README Status rewritten (M1 to M4 done, not done list) and "How Kiro was used" write-up added.
+Blog draft: docs/blog-post-draft.md (not published).
+
+### Verification (21 Nov 2026, VPS)
+- python -m tests.test_collector, python -m tests.test_m2, python -m tests.test_m3: all print ok, exit 0.
+- uvicorn src.api.main:app, curl GET /feed returned HTTP 200 with real JSON; top 10 in docs/m4/feed_top10.txt.
+- streamlit run src/dashboard/app.py: /_stcore/health 200; screenshot shows feed ordered
+  71.2, 70.3, 66.2, ... descending, no errors.
+- Top 10 from GET /feed:
+
+ 1.   71.2  robotics (technology)  N=54.9 V=100.0 C=58.7 W=75.0  http://arxiv.org/abs/2611.26420v1
+ 2.   70.3  GPT-6 (product)  N=52.7 V=100.0 C=58.7 W=75.0  http://arxiv.org/abs/2611.26613v1
+ 3.   66.2  GitHub (product)  N=67.4 V=66.7 C=58.7 W=75.0  http://arxiv.org/abs/2611.23216v1
+ 4.   65.6  OpenAI (company)  N=59.6 V=100.0 C=58.7 W=0.0  https://news.ycombinator.com/item?id=50542368
+ 5.   64.3  Claude (product)  N=24.8 V=91.7 C=94.0 W=80.8  http://www.pakistantelegraph.com/news/279446523/frontier-breached-anthropic-mathematician-claims-solution-of-riemann-hypothesis-with-help-from-claude-ai
+ 6.   63.7  Anthropic (company)  N=45.9 V=100.0 C=76.7 W=0.0  http://www.pakistantelegraph.com/news/279446523/frontier-breached-anthropic-mathematician-claims-solution-of-riemann-hypothesis-with-help-from-claude-ai
+ 7.   62.5  TreeC (product)  N=72.7 V=66.7 C=29.3 W=75.0  http://arxiv.org/abs/2611.26441v1
+ 8.   62.3  Cursor (product)  N=66.0 V=100.0 C=29.3 W=0.0  https://news.ycombinator.com/item?id=50583519
+ 9.   61.7  Apple (company)  N=55.6 V=100.0 C=47.3 W=0.0  https://whdh.com/news/apple-joins-a-parade-of-technology-hiccups-in-recent-days/
+10.   61.6  Microsoft (company)  N=55.0 V=100.0 C=29.3 W=37.5  https://news.ycombinator.com/item?id=50543279
+
+## Feature freeze (from 21 Nov 2026)
+After M4 no new features. Only fixes until submission.
