@@ -1,0 +1,10 @@
+[Unit]
+Description=Ghost Signal dashboard (Streamlit)
+
+[Service]
+WorkingDirectory=%h/kiroween/ghost-signal
+ExecStart=%h/kiroween/ghost-signal/.venv/bin/streamlit run src/dashboard/app.py --server.headless true --server.address 127.0.0.1 --server.port 8502 --browser.gatherUsageStats false
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

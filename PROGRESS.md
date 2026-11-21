@@ -107,3 +107,25 @@ Blog draft: docs/blog-post-draft.md (not published).
 
 ## Feature freeze (from 21 Nov 2026)
 After M4 no new features. Only fixes until submission.
+
+## Deploy (22 Nov 2026)
+Live, plain HTTP on the VPS public IP:
+- Dashboard: http://43.156.56.188:8501/
+- API (read-only, GET only): http://43.156.56.188:8501/api/feed , http://43.156.56.188:8501/api/docs
+
+Config in deploy/ (Caddyfile, two systemd user units). Details and Vercel / Streamlit Cloud verdicts: docs/deploy/notes.md.
+Old ad-hoc uvicorn/streamlit processes replaced by the systemd units (no duplicates).
+
+Firewall / ports: ufw and the Tencent Cloud firewall already allow 22, 80, 443, 8501. Port 80/443 are DNAT'd
+by k3s Traefik to a pod, so Caddy cannot serve there. Caddy uses 8501 instead; Streamlit moved to 127.0.0.1:8502.
+HTTPS needs a domain.
+
+Verification, curl against the public IP from the VPS:
+- GET / 200 (7863 B, Streamlit page); GET /_stcore/health 200 "ok"; websocket /_stcore/stream 101
+- GET /api/feed?limit=2 200, 2 items, top: robotics 71.2 (score_date 2026-11-21)
+- GET /api/docs 200, /api/openapi.json 200, /api/watchlist 200
+- POST /api/watchlist 405, DELETE /api/watchlist/17 405 (writes blocked)
+- :8000 direct from public: no answer (API only on localhost)
+
+Verdicts: Vercel no (no persistent process or websocket for Streamlit). Streamlit Community Cloud yes,
+after data/ghost-signal.db is committed or the empty-DB crash is fixed (fresh clone crashes with IndexError).

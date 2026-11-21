@@ -1,0 +1,18 @@
+# Ghost Signal on public IP, plain HTTP. Port 80/443 here belong to k3s Traefik (svclb DNAT), so Caddy takes :8501
+# (already open in ufw + Tencent firewall) and Streamlit moves to 127.0.0.1:8502.
+# HTTPS: needs a domain; then route the domain through Traefik or free port 80/443.
+:8501 {
+	encode gzip
+
+	handle_path /api/* {
+		# Read-only public API: block watchlist writes (POST/DELETE) from the internet.
+		@write not method GET HEAD
+		respond @write "read-only" 405
+		reverse_proxy 127.0.0.1:8000
+	}
+
+	# Streamlit dashboard (websockets proxied automatically).
+	handle {
+		reverse_proxy 127.0.0.1:8502
+	}
+}

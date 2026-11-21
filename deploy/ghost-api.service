@@ -1,0 +1,10 @@
+[Unit]
+Description=Ghost Signal API (uvicorn)
+
+[Service]
+WorkingDirectory=%h/kiroween/ghost-signal
+ExecStart=%h/kiroween/ghost-signal/.venv/bin/uvicorn src.api.main:app --host 127.0.0.1 --port 8000 --root-path /api
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
