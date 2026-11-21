@@ -165,7 +165,12 @@ Updated 18 Nov 2026. Be honest about what is done and what is not.
   velocity are not yet meaningful; they need several days of collection.
   The heuristic extractor misses many entities (189 of 407 documents have
   none) and some regex hits are noise.
-- Not done: API, dashboard. No scheduler (cron or systemd) installed.
+- Done (M3, 21 Nov 2026): FastAPI API (`uvicorn src.api.main:app`) and
+  Streamlit dashboard (`streamlit run src/dashboard/app.py`) on the real M2
+  data. Feed by Ghost Score, evidence chain, watchlist. Details and
+  verification output in PROGRESS.md. Test: `python -m tests.test_m3`.
+- Not done: no scheduler (cron or systemd) installed. No entity scores above
+  70 yet. No patent source yet.
 
 ## Milestones
 

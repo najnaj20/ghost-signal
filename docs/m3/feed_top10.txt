@@ -1,0 +1,10 @@
+ 1.  69.3  robotics (technology)  N=75.1 V=66.7 C=58.7 W=75.0  http://arxiv.org/abs/2611.23228v1
+ 2.  69.2  GitHub (product)  N=74.9 V=66.7 C=58.7 W=75.0  http://arxiv.org/abs/2611.23216v1
+ 3.  68.2  OpenAI (company)  N=66.2 V=100.0 C=58.7 W=0.0  https://news.ycombinator.com/item?id=50542368
+ 4.  68.2  GPT-6 (product)  N=72.4 V=66.7 C=58.7 W=75.0  https://news.ycombinator.com/item?id=50535783
+ 5.  64.1  Apple (company)  N=61.6 V=100.0 C=47.3 W=0.0  https://whdh.com/news/apple-joins-a-parade-of-technology-hiccups-in-recent-days/
+ 6.  64.0  Microsoft (company)  N=61.1 V=100.0 C=29.3 W=37.5  https://news.ycombinator.com/item?id=50543279
+ 7.  63.1  measles (disease)  N=44.4 V=100.0 C=76.7 W=0.0  https://midmichigannow.com/news/nation-world/preventable-failure-us-loses-measles-elimination-status-after-26-years
+ 8.  62.2  fine-tuning (technology)  N=42.9 V=100.0 C=58.7 W=33.3  https://news.ycombinator.com/item?id=50543212
+ 9.  61.7  transformer (technology)  N=70.7 V=66.7 C=29.3 W=75.0  http://arxiv.org/abs/2611.23126v1
+10.  60.1  reinforcement learning (technology)  N=44.4 V=100.0 C=29.3 W=64.3  http://arxiv.org/abs/2611.23124v1

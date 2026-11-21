@@ -45,6 +45,10 @@ CREATE TABLE IF NOT EXISTS scores (
     ghost_score REAL NOT NULL,
     PRIMARY KEY (entity_id, date)
 );
+CREATE TABLE IF NOT EXISTS watchlist (
+    entity_id INTEGER PRIMARY KEY REFERENCES entities(id),
+    added_at TEXT NOT NULL
+);
 """
 
 
